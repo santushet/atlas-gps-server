@@ -126,7 +126,7 @@ exports.params = function (data) {
 
     zaryad = '' ;
     tc = '';
-
+    sourcedata = '';
 
     params = {
         imei:imei,
