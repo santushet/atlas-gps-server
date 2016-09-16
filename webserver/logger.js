@@ -105,7 +105,7 @@ exports.parseDataGpsLogger=function(sock){
 	sock.on('data',function(data){
 		sock.end('ok');
 
-		console.log('GpsLogger send: '+data.toString());
+		console.log('1GpsLogger send: '+data.toString());
 		gpslogger.imei(data.toString());
 		//console.log('imei: '+gpslogger.imei(data))
 		var params=gpslogger.params(data);
