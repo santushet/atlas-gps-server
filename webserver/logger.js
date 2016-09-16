@@ -105,7 +105,7 @@ exports.parseDataGpsLogger=function(sock){
 	sock.on('data',function(data){
 		sock.end('ok');
 
-		console.log('1GpsLogger send: '+data.toString());
+		console.log('GpsLogger send: '+data.toString());
 		gpslogger.imei(data.toString());
 		//console.log('imei: '+gpslogger.imei(data))
 		var params=gpslogger.params(data);
@@ -133,7 +133,7 @@ exports.GpsLogger=function(net){
 	var scope=this;
 	net.createServer(function(sock){
 		scope.parseDataGpsLogger(sock);
-	}).listen(10100,'0.0.0.0',function(){
+	}).listen(1339,'0.0.0.0',function(){
 			console.log('GpsLogger listening 10100');
 		});
 }
