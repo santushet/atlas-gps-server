@@ -108,6 +108,10 @@ exports.parseDataGpsLogger=function(sock){
 		console.log('GpsLogger send: '+data.toString());
 		gpslogger.imei(data.toString());
 		//console.log('imei: '+gpslogger.imei(data))
+
+		var text = '' + data;
+    var arr = text.split('|');
+	if(''+arr[0] == '^TMPER'){	
 		var params=gpslogger.params(data);
 		for(var opt in params){
 			console.log(opt+':'+params[opt])
@@ -124,9 +128,11 @@ exports.parseDataGpsLogger=function(sock){
 			}
 
 		}
+	}
 	}).on('close',function(data){
 			console.log('GpsLogger end connection');
 		});
+
 }
 
 exports.GpsLogger=function(net){

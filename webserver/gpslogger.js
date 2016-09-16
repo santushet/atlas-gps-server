@@ -48,15 +48,10 @@ exports.params = function (data) {
     //$GM231869158002854111T161012161240N50233157E03029611200024995730298#
     var sourcedata;
     var params;
-    // var text = '' + data;
-
     var imei = this.imei(data);
 
     console.log('imei'+imei);
-
-
     var text = '' + data;
-
     var arr = text.split('|');
     // ^TMPER|354678456723764|1|12.59675|77.56789|123456|030414|2.3|34|1|0|0|0.015|3.9|12.0|23.4|23.4|1|1|0|#
 
@@ -70,6 +65,7 @@ exports.params = function (data) {
     var tc = '';
 
 if(''+arr[0] == '^TMPER'){
+  console.log('inside if');
 
       datatime = ''+arr[6].split('')[4]+arr[6].split('')[5]+arr[6].split('')[2]+arr[6].split('')[3]+arr[6].split('')[0]+arr[6].split('')[1]+arr[5];
 
@@ -102,10 +98,10 @@ if(''+arr[0] == '^TMPER'){
           tc:tc,
           sourcedata:sourcedata
       }
-      return params;
+
 }
       //
-
+return params;
 }
 
 exports.save = function (data) {
