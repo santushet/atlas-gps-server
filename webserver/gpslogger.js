@@ -58,19 +58,6 @@ exports.params = function (data) {
     var text = '' + data;
 
     var arr = text.split('|');
-    // var obj = {};
-    // for (var i = 0; i < arr.length; i++) {
-    //     obj[arr[i].split('=')[0]] = arr[i].split('=')[1]
-    // }
-  //  text = obj['gprmc'];
-  //  sourcedata = obj['gprmc'];
-    //gprmc: %24GPRMC%2C195638.586%2CA%2C5023.32668%2CN%2C3029.63043%2CE%2C0.000000%2C0.000000%2C301213%2C%2C*3D
-    //gprmc: %24GPRMC%2C195638.586%2CA%2C5023.32668%2CN%2C3029.63043%2CE%2C0.000000%2C0.000000%2C301213%2C%2C*3D
-    // arr = text.split('%2C');
-    //   0        1        2       3       4       5      6     7           8       9       10
-    //%24GPRMC  195638.586  A  5023.32668  N  3029.63043  E  0.000000  0.000000  301213    *3D
-    //%24GPRMC  201429.000  A  5023.45080  N  3029.60190  E  0.000000  46.380001  301213    *0E
-
     // ^TMPER|354678456723764|1|12.59675|77.56789|123456|030414|2.3|34|1|0|0|0.015|3.9|12.0|23.4|23.4|1|1|0|#
 
     var datetime = '';
@@ -81,66 +68,44 @@ exports.params = function (data) {
     var sputnik = '';
     var zaryad = '';
     var tc = '';
-    //
 
-    datatime = ''+arr[6].split('')[4]+arr[6].split('')[5]+arr[6].split('')[2]+arr[6].split('')[3]+arr[6].split('')[0]+arr[6].split('')[1]+arr[5];
-    // var mm ;
-    // datetime = '' +arr[9].split('')[4]+arr[9].split('')[5]+arr[9].split('')[2]+arr[9].split('')[3]+arr[9].split('')[0]+arr[9].split('')[1]+arr[1].split('.')[0];
+if(arr[0] == '^TMPER'){
 
-    // lat = (arr[4] == 'N' ? '+' : '-') + arr[3];
-    lat = '' + arr[3];
-    lat = parseFloat(lat);
-    // lat = lat/100;
+      datatime = ''+arr[6].split('')[4]+arr[6].split('')[5]+arr[6].split('')[2]+arr[6].split('')[3]+arr[6].split('')[0]+arr[6].split('')[1]+arr[5];
 
-    // lat = ''+lat;
-    // mm = lat.split('.')[1];
-    // mm = parseFloat(mm);
-    // mm =100 * mm/60;
-    //
-    // lat = Math.floor(lat);
-    // lat = '' + lat +'.'+mm;
-    // lat = parseFloat(lat);
-    //
-    // lng = (arr[6] == 'E' ? '+' : '-') + arr[5];
-    //
-    // lng = lng/100;
-    //
-    // lng = ''+lng;
-    // mm = lng.split('.')[1];
-    // mm = parseFloat(mm);
-    // mm =100 * mm/60;
-    //
-    // lng = Math.floor(lng);
-    // lng = '' + lng +'.'+mm;
+      lat = '' + arr[3];
+      lat = parseFloat(lat);
 
-    lng = '' + arr[4];
-    lng = parseFloat(lng);
+      lng = '' + arr[4];
+      lng = parseFloat(lng);
 
-    speed = '' + arr[7];
-    speed = parseFloat(speed);
+      speed = '' + arr[7];
+      speed = parseFloat(speed);
 
-    azimuth = '' + arr[8];
-    azimuth = parseFloat(azimuth);
+      azimuth = '' + arr[8];
+      azimuth = parseFloat(azimuth);
 
-    sputnik = '';
+      sputnik = '';
+      zaryad = '' ;
+      tc = '';
+      sourcedata = '';
 
-    zaryad = '' ;
-    tc = '';
-    sourcedata = '';
+      params = {
+          imei:imei,
+          datetime:datetime,
+          lat:lat,
+          lng:lng,
+          speed:speed,
+          azimuth:azimuth,
+          sputnik:sputnik,
+          zaryad:zaryad,
+          tc:tc,
+          sourcedata:sourcedata
+      }
+      return params;
+}
+      //
 
-    params = {
-        imei:imei,
-        datetime:datetime,
-        lat:lat,
-        lng:lng,
-        speed:speed,
-        azimuth:azimuth,
-        sputnik:sputnik,
-        zaryad:zaryad,
-        tc:tc,
-        sourcedata:sourcedata
-    }
-    return params;
 }
 
 exports.save = function (data) {
