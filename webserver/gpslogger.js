@@ -55,9 +55,9 @@ exports.params = function (data) {
     console.log('imei'+imei);
 
 
-    // var text = '' + data;
+    var text = '' + data;
 
-    var arr = data.split('|');
+    var arr = text.split('|');
     // var obj = {};
     // for (var i = 0; i < arr.length; i++) {
     //     obj[arr[i].split('=')[0]] = arr[i].split('=')[1]
@@ -88,7 +88,8 @@ exports.params = function (data) {
     // datetime = '' +arr[9].split('')[4]+arr[9].split('')[5]+arr[9].split('')[2]+arr[9].split('')[3]+arr[9].split('')[0]+arr[9].split('')[1]+arr[1].split('.')[0];
 
     // lat = (arr[4] == 'N' ? '+' : '-') + arr[3];
-    lat = parseFloat(arr[3]);
+    lat = '' + arr[3];
+    lat = parseFloat(lat);
     // lat = lat/100;
 
     // lat = ''+lat;
@@ -112,7 +113,8 @@ exports.params = function (data) {
     // lng = Math.floor(lng);
     // lng = '' + lng +'.'+mm;
 
-    lng = parseFloat(arr[4]);
+    lng = '' + arr[4];
+    lng = parseFloat(lng);
 
     speed = '' + arr[7];
     speed = parseFloat(speed);
