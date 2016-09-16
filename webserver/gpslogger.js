@@ -69,7 +69,7 @@ exports.params = function (data) {
     var zaryad = '';
     var tc = '';
 
-if(arr[0] == '^TMPER'){
+if(''+arr[0] == '^TMPER'){
 
       datatime = ''+arr[6].split('')[4]+arr[6].split('')[5]+arr[6].split('')[2]+arr[6].split('')[3]+arr[6].split('')[0]+arr[6].split('')[1]+arr[5];
 
