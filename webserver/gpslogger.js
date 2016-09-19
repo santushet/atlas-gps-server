@@ -2,6 +2,8 @@ var mysql = require('mysql');
 var config = require('./web-config.json');
 var connection = mysql.createConnection(config.mysql);
 
+
+connection.connect();
 /*
 
  GET /?alt=0.0&code=0xF020&id=123456789012345&gprmc=%24GPRMC%2C191019.951%2CA%2C5023.32513%2CN%2C3029.62911%2CE%2C0.000000%2C0.000000%2C301213%2C%2C*3A HTTP/1.1
