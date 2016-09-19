@@ -12,102 +12,103 @@ var connection = mysql.createConnection(config.mysql);
  */
 
 
-exports.imei = function (data) {
-    var text = '' + data;
-    // text = text.split('HTTP')[0];
-    // text = text.replace(/\s/g, "");
-    // text = text.replace(/GET/g, "");
+exports.imei = function(data) {
+  var text = '' + data;
+  // text = text.split('HTTP')[0];
+  // text = text.replace(/\s/g, "");
+  // text = text.replace(/GET/g, "");
 
 
-    var arr = text.split('|');
-    // var obj = {};
-    // for (var i = 0; i < arr.length; i++) {
-    //     obj[arr[i].split('=')[0]] = arr[i].split('=')[1]
-    // }
-    /*
-     for(var opt in obj){
-     console.log(opt + ': '+obj[opt] );
-     }
-     text  = obj['gprmc'];
-     */
+  var arr = text.split('|');
+  // var obj = {};
+  // for (var i = 0; i < arr.length; i++) {
+  //     obj[arr[i].split('=')[0]] = arr[i].split('=')[1]
+  // }
+  /*
+   for(var opt in obj){
+   console.log(opt + ': '+obj[opt] );
+   }
+   text  = obj['gprmc'];
+   */
 
-    var imei = arr[1];
+  var imei = arr[1];
 
-    return imei;
+  return imei;
 }
-exports.res = function (data) {
-    var text = '' + data;
-    var arr = text.split('');
-    var res = '';
-    for (var i = 1; i < 4; i++) {
-        res += arr[i];
+exports.res = function(data) {
+  var text = '' + data;
+  var arr = text.split('');
+  var res = '';
+  for (var i = 1; i < 4; i++) {
+    res += arr[i];
+  }
+  return '__' + res + '\r\n';
+}
+exports.params = function(data) {
+  //$GM231869158002854111T161012161240N50233157E03029611200024995730298#
+  var sourcedata;
+  var params;
+  var imei = this.imei(data);
+
+  // console.log('imei'+imei);
+  var text = '' + data;
+  var arr = text.split('|');
+  // ^TMPER|354678456723764|1|12.59675|77.56789|123456|030414|2.3|34|1|0|0|0.015|3.9|12.0|23.4|23.4|1|1|0|#
+
+  var datetime = '';
+  var azimuth = '';
+  var lat = '';
+  var lng = '';
+  var speed = '';
+  var sputnik = '';
+  var zaryad = '';
+  var tc = '';
+
+  if ('' + arr[0] == '^TMPER') {
+
+    datetime = '' + arr[6].split("")[4] + arr[6].split("")[5] + arr[6].split("")[2] + arr[6].split("")[3] + arr[6].split("")[0] + arr[6].split("")[1] + arr[5];
+
+
+    lat = '' + arr[3];
+    lat = parseFloat(lat);
+
+    lng = '' + arr[4];
+    lng = parseFloat(lng);
+
+    speed = '' + arr[7];
+    speed = parseFloat(speed);
+
+    azimuth = '' + arr[8];
+    azimuth = parseFloat(azimuth);
+
+    sputnik = '';
+    zaryad = '';
+    tc = '';
+    sourcedata = '';
+
+    params = {
+      imei: imei,
+      datetime: datetime,
+      lat: lat,
+      lng: lng,
+      speed: speed,
+      azimuth: azimuth,
+      sputnik: sputnik,
+      zaryad: zaryad,
+      tc: tc,
+      sourcedata: sourcedata
     }
-    return '__' + res + '\r\n';
-}
-exports.params = function (data) {
-    //$GM231869158002854111T161012161240N50233157E03029611200024995730298#
-    var sourcedata;
-    var params;
-    var imei = this.imei(data);
 
-    // console.log('imei'+imei);
-    var text = '' + data;
-    var arr = text.split('|');
-    // ^TMPER|354678456723764|1|12.59675|77.56789|123456|030414|2.3|34|1|0|0|0.015|3.9|12.0|23.4|23.4|1|1|0|#
-
-    var datetime = '';
-    var azimuth = '';
-    var lat = '';
-    var lng = '';
-    var speed = '';
-    var sputnik = '';
-    var zaryad = '';
-    var tc = '';
-
-if(''+arr[0] == '^TMPER'){
-
-      datetime = ''+arr[6].split("")[4]+arr[6].split("")[5]+arr[6].split("")[2]+arr[6].split("")[3]+arr[6].split("")[0]+arr[6].split("")[1]+arr[5];
-
-console.log(datetime);
-      lat = '' + arr[3];
-      lat = parseFloat(lat);
-
-      lng = '' + arr[4];
-      lng = parseFloat(lng);
-
-      speed = '' + arr[7];
-      speed = parseFloat(speed);
-
-      azimuth = '' + arr[8];
-      azimuth = parseFloat(azimuth);
-
-      sputnik = '';
-      zaryad = '' ;
-      tc = '';
-      sourcedata = '';
-
-      params = {
-          imei:imei,
-          datetime:datetime,
-          lat:lat,
-          lng:lng,
-          speed:speed,
-          azimuth:azimuth,
-          sputnik:sputnik,
-          zaryad:zaryad,
-          tc:tc,
-          sourcedata:sourcedata
-      }
-
-}
-      //
-return params;
+  }
+  //
+  return params;
 }
 
-exports.save = function (data) {
-    connection.query('INSERT INTO log SET ?', data, function (err, result) {
-        if (err) {
-            console.log(err);
-        }
-    });
+exports.save = function(data) {
+  console.log('inside save');
+  connection.query('INSERT INTO log SET ?', data, function(err, result) {
+    if (err) {
+      console.log(err);
+    }
+  });
 }
