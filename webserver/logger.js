@@ -106,8 +106,6 @@ exports.parseData = function(sock) {
 exports.parseDataGpsLogger = function(sock) {
   console.log('CONNECTED GpsLogger: ' + sock.remoteAddress + ':' + sock.remotePort);
   sock.on('data', function(data) {
-    sock.end('ok');
-
     console.log('GpsLogger send: ' + data.toString());
     gpslogger.imei(data.toString());
     //console.log('imei: '+gpslogger.imei(data))
@@ -132,8 +130,17 @@ exports.parseDataGpsLogger = function(sock) {
 
       }
     }
-  }).on('close', function(data) {
+  });
+
+sock.on('end',function() {
+  console.log('socket end');
+});
+
+  sock.on('close', function(data) {
     console.log('GpsLogger end connection');
+  });
+  socket.on('error', function(err) {
+     console.log(err)
   });
 
 }
