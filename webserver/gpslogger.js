@@ -67,10 +67,10 @@ exports.params = function (data) {
 if(''+arr[0] == '^TMPER'){
   console.log('inside if');
 
-  console.log(arr[6]);
+  console.log(arr[6].split("")[4]);
   console.log(arr[5]);
 
-      datatime = ''+arr[6].split('')[4]+arr[6].split('')[5]+arr[6].split('')[2]+arr[6].split('')[3]+arr[6].split('')[0]+arr[6].split('')[1]+arr[5];
+      datatime = ''+arr[6].split("")[4]+arr[6].split('')[5]+arr[6].split('')[2]+arr[6].split('')[3]+arr[6].split('')[0]+arr[6].split('')[1]+arr[5];
 
 console.log(datetime);
       lat = '' + arr[3];
