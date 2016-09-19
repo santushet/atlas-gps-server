@@ -50,7 +50,7 @@ exports.params = function (data) {
     var params;
     var imei = this.imei(data);
 
-    console.log('imei'+imei);
+    // console.log('imei'+imei);
     var text = '' + data;
     var arr = text.split('|');
     // ^TMPER|354678456723764|1|12.59675|77.56789|123456|030414|2.3|34|1|0|0|0.015|3.9|12.0|23.4|23.4|1|1|0|#
@@ -67,8 +67,12 @@ exports.params = function (data) {
 if(''+arr[0] == '^TMPER'){
   console.log('inside if');
 
+  console.log(arr[6]);
+  console.log(arr[5]);
+
       datatime = ''+arr[6].split('')[4]+arr[6].split('')[5]+arr[6].split('')[2]+arr[6].split('')[3]+arr[6].split('')[0]+arr[6].split('')[1]+arr[5];
 
+console.log(datetime);
       lat = '' + arr[3];
       lat = parseFloat(lat);
 
