@@ -139,7 +139,7 @@ sock.on('end',function() {
   sock.on('close', function(data) {
     console.log('GpsLogger end connection');
   });
-  socket.on('error', function(err) {
+  sock.on('error', function(err) {
      console.log(err)
   });
 
