@@ -108,9 +108,11 @@ exports.params = function(data) {
 
 exports.save = function(data) {
   console.log('inside save');
-  connection.query('INSERT INTO log SET ?', data, function(err, result) {
+var query=  connection.query('INSERT INTO log SET ?', data, function(err, result) {
     if (err) {
       console.log(err);
     }
   });
+
+  console.log(query.sql);
 }
