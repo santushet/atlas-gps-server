@@ -3,13 +3,6 @@ var config = require('./web-config.json');
 var connection = mysql.createConnection(config.mysql);
 
 
-// connection.connect(function(err){
-//   if(err){
-//     console.log("Error connecting to db");
-//     return;
-//   }
-//   console.log("connection established");
-// });
 /*
 
  GET /?alt=0.0&code=0xF020&id=123456789012345&gprmc=%24GPRMC%2C191019.951%2CA%2C5023.32513%2CN%2C3029.62911%2CE%2C0.000000%2C0.000000%2C301213%2C%2C*3A HTTP/1.1
@@ -73,9 +66,7 @@ exports.params = function(data) {
   var tc = '';
 
   if ('' + arr[0] == '^TMPER') {
-
     datetime = '' + arr[6].split("")[4] + arr[6].split("")[5] + arr[6].split("")[2] + arr[6].split("")[3] + arr[6].split("")[0] + arr[6].split("")[1] + arr[5];
-
 
     lat = '' + arr[3];
     lat = parseFloat(lat);
@@ -114,13 +105,9 @@ exports.params = function(data) {
 
 exports.save = function(data) {
   console.log('inside save');
-var query=  connection.query('INSERT INTO log SET ?', data, function(err, result) {
+ connection.query('INSERT INTO log SET ?', data, function(err, result) {
     if (err) {
       console.log(err);
     }
-    console.log(result);
   });
-
-  console.log(query.sql);
-
 }
