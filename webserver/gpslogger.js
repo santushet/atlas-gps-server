@@ -121,4 +121,5 @@ var query=  connection.query('INSERT INTO log SET ?', data, function(err, result
   });
 
   console.log(query.sql);
+  console.log(result);
 }

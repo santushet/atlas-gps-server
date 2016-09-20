@@ -3,7 +3,13 @@ var mysql = require('mysql');
 
 var connection = mysql.createConnection(config.mysql);
 
-connection.connect();
+connection.connect(function(err){
+  if(err){
+    console.log("Error connecting to db");
+    return;
+  }
+  console.log("connection established");
+});
 
 exports.checkPass = function (login, pass, key, success) {
     connection.query('SELECT * FROM user WHERE name = ?', [login], function (error, result, fields) {
